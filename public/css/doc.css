@@ -1,0 +1,58 @@
+/* Footer
+-------------------------------------------------- */
+.footer {
+    background-color: #eee;
+    min-width: 940px;
+    padding: 30px 0;
+    text-shadow: 0 1px 0 #fff;
+    border-top: 1px solid #e5e5e5;
+    -webkit-box-shadow: inset 0 5px 15px rgba(0,0,0,.025);
+    -moz-box-shadow: inset 0 5px 15px rgba(0,0,0,.025);
+    /*          box-shadow: inset 0 5px 15px rgba(0,0,0,.025);
+    */}
+
+.footer p {
+    color: #555;
+}
+
+.beaver-image {
+    background: url(/img/beaverlogo_3col.jpg) center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 180px;
+    width: 300px;
+}
+
+.cub-image {
+    background: url(/img/cubs.jpg) center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top: 70px;
+    height: 106px
+}
+
+.scout-image {
+    background: url(/img/scouts.gif) center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top: 70px;
+    height: 95px
+}
+
+.explorer-image {
+    background: url(/img/explorers.gif) center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top: 70px;
+    height: 140px
+}
+
+.esu-image {
+    background: url(/img/esu.jpg) center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top: 70px;
+    height: 140px
+}
+
+ol.black li { color: black; }

@@ -2,12 +2,14 @@
 define([
     'underscore',
     'jQueryWithBootstrap',
-    'backbone'
+    'backbone',
+    'app/views/sectionPage'
 ],
     function(
         _,
         $,
-        Backbone) {
+        Backbone,
+        SectionPageView) {
 
         var AppRouter = Backbone.Router.extend({
             routes: {
@@ -21,25 +23,26 @@ define([
             },
 
             initialize: function() {
+                $('.dropdown-toggle').dropdown();
             },
 
             homepage: function() {
             },
 
             beavers: function() {
-
+                new SectionPageView({ el: $("#main-container"), section: "beavers" });
             },
 
             cubs: function() {
-
+                new SectionPageView({ el: $("#main-container"), section: "cubs" });
             },
 
             scouts: function() {
-
+                new SectionPageView({ el: $("#main-container"), section: "scouts" });
             },
 
             explorers: function() {
-
+                new SectionPageView({ el: $("#main-container"), section: "explorers" });
             },
 
             group: function(){
