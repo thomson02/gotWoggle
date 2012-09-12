@@ -1,30 +1,47 @@
 // The backbone router
 define([
     'underscore',
-    'jQueryWithBootstrap',
+    'jquery',
     'backbone',
-    'text!app/templates/sectionPage.html',
-    'app/views/modules/aboutModule'
+    'app/views/modules/schedule',
+    'text!app/templates/sectionPages/beaversPage.html',
+    'text!app/templates/sectionPages/cubsPage.html',
+    'text!app/templates/sectionPages/scoutsPage.html',
+    'text!app/templates/sectionPages/explorersPage.html'
 ],
     function(
         _,
         $,
         Backbone,
-        SectionPageTemplate,
-        AboutModule) {
+        ScheduleView,
+        BeaversTemplate,
+        CubsTemplate,
+        ScoutsTemplate,
+        ExplorersTemplate
+        ) {
 
-        var publics = {};
+        var templateMap = {
+            "beavers": BeaversTemplate,
+            "cubs": CubsTemplate,
+            "scouts": ScoutsTemplate,
+            "explorers": ExplorersTemplate
+        }
 
-        publics.sectionPageView = Backbone.View.extend({
+        var sectionPageView = Backbone.View.extend({
 
             initialize: function(options){
                 this.section = options.section;
-                this.$el.html(SectionPageTemplate);
+            },
 
-                new AboutModule({ el: this.$el.find("div.about"), section: this.section }).render();
+            render: function(){
+                this.$el.html(templateMap[this.section]);
+                new ScheduleView({ el: this.$("#scheduleContainer"), section: this.section }).render();
+                // new EventView({ el: this.$("#eventContainer"), section: this.section }).render();
+                // new MediaView({ el: this.$("#mediaContainer"), section: this.section }).render();
+
+                return this;
             }
-
         });
 
-        return publics.sectionPageView;
+        return sectionPageView;
     });

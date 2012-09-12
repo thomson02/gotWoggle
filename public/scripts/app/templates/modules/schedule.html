@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="span10"><h3><%= calendarTitle %></h3></div>
+    <div class="controls" style="float: right;">
+        <button class="btn prev" style="font-size:9px;"><<</button>
+        <button class="btn today" style="font-size:9px;">Today</button>
+        <button class="btn next" style="font-size:9px;">>></button>
+    </div>
+</div>
+<div class="row" style="margin-top: 7px;">
+    <table class="span12 table table-bordered">
+        <thead>
+            <tr style="background-color: #f9f9f9;">
+                <th style="padding: 9px 10px; text-align: left">Mon</th>
+                <th style="padding: 9px 10px; text-align: left">Tues</th>
+                <th style="padding: 9px 10px; text-align: left">Wed</th>
+                <th style="padding: 9px 10px; text-align: left">Thur</th>
+                <th style="padding: 9px 10px; text-align: left">Fri</th>
+                <th style="padding: 9px 10px; text-align: left">Sat</th>
+                <th style="padding: 9px 10px; text-align: left">Sun</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <% _.each(days, function(day, i){ %>
+                <% if (i % 7 === 0) { print("</tr><tr>"); } %>
+                <td style="text-align: center; width:14%; height: 70px; <% if (day.today) { print('background-color: #FEE9CC;'); } %>">
+                    <div>
+                        <div class="dayCounter" align="right" <% if (!day.activeMonth) { print('style="color: #ccc;"'); } %>><%= day.date %></div>
+                        <div <% if (day.activeMonth) { print('id="schedule' + day.date + '"'); } %>></div>
+                    </div>
+                </td>
+            <% }); %>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,6 +1,15 @@
 // The main application script, ties everything together.
 var express = require('express');
+var mongoose = require('mongoose');
 var app = express.createServer();
+
+// Setup DB Access
+mongoose.connect(process.env.MONGOLAB_URI);
+
+// Declare Mongoose Schemas
+var Event = mongoose.model('Event', new mongoose.Schema({
+    
+}));
 
 // Configure the server
 app.configure(function(){
@@ -11,6 +20,8 @@ app.configure(function(){
         app.use(app.router);
     }
 );
+
+
 
 app.get("/", function(request, response){
     response.sendfile('index.html');

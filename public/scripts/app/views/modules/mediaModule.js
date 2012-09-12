@@ -1,7 +1,7 @@
 // The backbone router
 define([
     'underscore',
-    'jQueryWithBootstrap',
+    'jquery',
     'backbone',
     'text!app/templates/mediaModule.html'
 ],
@@ -17,7 +17,7 @@ define([
 
             initialize: function(options){
                 this.section = options.section;
-                this.fetchUrl =
+                //this.fetchUrl =
             },
 
             render: function(){
