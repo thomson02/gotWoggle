@@ -3,3 +3,5 @@ public/OldSite
 .DS_Store
 .idea/
 *.xml
+
+.idea/workspace.xml
