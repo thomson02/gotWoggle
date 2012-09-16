@@ -15,8 +15,8 @@ var Event = mongoose.model('Event', new mongoose.Schema({
     section: String,
     imageUrl: String,
     htmlBody: String,
-    downloads: [String],
-    links: [String]
+    downloads: [mongoose.Schema.Types.Mixed],
+    links: [mongoose.Schema.Types.Mixed]
 }));
 
 // Configure the server
