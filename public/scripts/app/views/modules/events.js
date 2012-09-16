@@ -71,7 +71,7 @@ define([
 
             fetchEvents: function(){
                 var that = this;
-                $.getJSON(this.fetchUrl, { section: this.section, page: this.pager.currentPage }, function(data){
+                $.getJSON(this.fetchUrl + this.section + "/" + this.pager.currentPage, function(data){
                     that.eventData.set(data);
                 });
             },
