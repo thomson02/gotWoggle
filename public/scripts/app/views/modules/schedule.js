@@ -3,13 +3,16 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'text!app/templates/modules/schedule.html'
+    'text!app/templates/modules/schedule.html',
+    'text!app/templates/modules/eventModal.html',
+    'bootstrap'
 ],
     function(
         _,
         $,
         Backbone,
-        template) {
+        template,
+        modalTemplate) {
 
         var months = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
 
@@ -18,7 +21,20 @@ define([
             events: {
                 'click button.prev': 'prevMonth',
                 'click button.today': 'today',
-                'click button.next': 'nextMonth'
+                'click button.next': 'nextMonth',
+                'click span.hasDialog': 'showEvent',
+                'click div.modal-footer a': 'closeEventModal'
+            },
+
+            closeEventModal: function(e){
+                e.preventDefault();
+                $("#scheduleModal div.modal").modal("hide");
+            },
+
+            showEvent: function(e) {
+                var eventDetails = _.find(this.currentDataset, function(ds) { return $(e.currentTarget).attr("class").indexOf("event" + ds._id) >= 0; });
+                this.$("#scheduleModal").html(_.template(modalTemplate, eventDetails));
+                $("#scheduleModal div.modal").modal();
             },
 
             prevMonth: function(){
@@ -39,10 +55,13 @@ define([
 
             initialize: function(options){
                 this.section = options.section;
-                this.fetchUrl = "";
+                this.fetchUrl = "/api/schedule/" + this.section + "/";
+
+                _.bindAll(this, 'showEvent');
 
                 this.dateViewing = new Date();
                 this.dateViewing.setDate(1);
+                this.currentDataset = null;
             },
 
             render: function(){
@@ -77,14 +96,10 @@ define([
             },
 
             addEvent: function(data){
-                data.cargo = $.parseJSON(data.cargo);
-
-                var message = data.title;
-                if (data.text.length > 0) { message = '<a href="event.html?id=' + data.id + '" style="color:white;">' + message + '</a>'; }
-                var html = '<span class="label ' + data.type + '" style="display: block; white-space: normal; margin-bottom: 3px;">' + message + '</span>';
-
-                var startDay = parseInt(data.startDate.substr(data.startDate.length-2));
-                var endDay = parseInt(data.endDate.substr(data.endDate.length-2));
+                var cssClass = data.htmlBody.length > 0 ? "label " + data.priority : "label hasDialog " + data.priority;
+                var html = '<span class="event' + data._id + ' ' + cssClass + '" style="display: block; white-space: normal; margin-bottom: 3px;">' + data.title + '</span>';
+                var startDay = parseInt(data.startDate.toString().substr(data.startDate.toString().length-2));
+                var endDay = parseInt(data.endDate.toString().substr(data.endDate.toString().length-2));
                 for (var d=startDay; d <= endDay; d++){
                     this.$("#schedule" + d).append(html);
                 }
@@ -95,10 +110,9 @@ define([
                 var fromDate = new Date(this.dateViewing.getFullYear(), this.dateViewing.getMonth()-1, 0);
                 var toDate = new Date(this.dateViewing.getFullYear(), this.dateViewing.getMonth(), 0);
 
-                $.getJSON(this.fetchUrl, { startDate: this.convertDate(fromDate), endDate: this.convertDate(toDate), section: this.section }, function(data){
-                    $.each(data, function(key, val) {
-                        that.addEvent(val);
-                    });
+                $.getJSON(this.fetchUrl + this.convertDate(fromDate) + "/" + this.convertDate(toDate), function(data){
+                    that.currentDataset = data;
+                    _.each(data, function(d) { that.addEvent(d); });
                 });
             }
         });

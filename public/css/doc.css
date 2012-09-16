@@ -236,3 +236,7 @@ ol.black li { color: black; }
     white-space: nowrap;
     overflow: hidden;
 }
+
+span.hasDialog {
+    cursor: pointer;
+}

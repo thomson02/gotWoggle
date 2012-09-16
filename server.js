@@ -16,7 +16,8 @@ var Event = mongoose.model('Event', new mongoose.Schema({
     imageUrl: String,
     htmlBody: String,
     downloads: [mongoose.Schema.Types.Mixed],
-    links: [mongoose.Schema.Types.Mixed]
+    links: [mongoose.Schema.Types.Mixed],
+    priority: String
 }));
 
 // Configure the server
@@ -49,33 +50,36 @@ app.get("/", function(request, response){
 ///////////////////////////////////////////////////////////
 // UNPROTECTED API                                       //
 ///////////////////////////////////////////////////////////
-var dummyEvents = [
-    { title: "Dummy1", startDate: "20120912", endDate: "20120912", imageUrl: "", htmlBody: "<h1>Hello World</h1>", downloads: [], links: [], section: "beavers" },
-    { title: "Dummy2", startDate: "20120912", endDate: "20120912", imageUrl: "", htmlBody: "<h1>Hello World</h1>", downloads: [], links: [], section: "scouts" },
-    { title: "Dummy3", startDate: "20120912", endDate: "20120912", imageUrl: "", htmlBody: "<h1>Hello World</h1>", downloads: [], links: [], section: "scouts" },
-    { title: "Dummy4", startDate: "20120912", endDate: "20120912", imageUrl: "", htmlBody: "<h1>Hello World</h1>", downloads: [], links: [], section: "scouts" },
-    { title: "Dummy5", startDate: "20120912", endDate: "20120912", imageUrl: "", htmlBody: "<h1>Hello World</h1>", downloads: [], links: [], section: "scouts" },
-    { title: "Dummy6", startDate: "20120912", endDate: "20120912", imageUrl: "", htmlBody: "<h1>Hello World</h1>", downloads: [], links: [], section: "scouts" }];
+app.get("/api/schedule/:section/:startDate/:endDate", function(req, res){
+    Event.find(
+        { section: req.params.section, startDate: {$gt: parseInt(req.params.startDate), $lte: parseInt(req.params.endDate) } },
+        function(err, events){
+            if (!err){
+                return res.send(events);
+            }
+        }
+    );
+});
 
 app.get("/api/events/:section/:page", function(req, res) {
-    var pageSize = 15;
-    var criteria = {
-        section: req.params.section,
-        skip: (req.params.page * pageSize),
-        limit: pageSize
-    };
+    var pageSize = 5;
 
-    Event.find(criteria, function(err, events){
-        if (!err){
-            var pageIndex = Math.round(events.length / pageSize);
+    Event.find(
+        { section: req.params.section },
+        null,
+        { skip: (req.params.page * pageSize), limit: pageSize },
+        function(err, events){
+            if (!err){
+                var pageIndex = Math.round(events.length / pageSize);
 
-            return res.send({
-                pageSize: pageSize,
-                lastPage: ((events.length % pageSize) == 0) ? --pageIndex : pageIndex,
-                results: events
-            });
+                return res.send({
+                    pageSize: pageSize,
+                    lastPage: ((events.length % pageSize) == 0) ? --pageIndex : pageIndex,
+                    results: events
+                });
+            }
         }
-    });
+    );
 });
 
 //////////////////////
@@ -104,7 +108,8 @@ app.post('/api/event', function(req, res) {
         imageUrl: req.body.imageUrl,
         htmlBody: req.body.htmlBody,
         downloads: req.body.downloads,
-        links: req.body.links
+        links: req.body.links,
+        priority: req.body.priority
     });
 
     event.save(function(err){
