@@ -56,7 +56,7 @@ define([
 
             initialize: function(options){
                 this.section = options.section;
-                this.fetchUrl = "/api/events/" + this.section + "/";
+                this.fetchUrl = "/api/events/";
 
                 this.eventData = new Backbone.Model({ lastPage: null, pageSize: null, results: null });
 
@@ -71,7 +71,7 @@ define([
 
             fetchEvents: function(){
                 var that = this;
-                $.getJSON(this.fetchUrl + this.pager.currentPage, function(data){
+                $.getJSON(this.fetchUrl, { section: this.section, page: this.pager.currentPage }, function(data){
                     that.eventData.set(data);
                 });
             },

@@ -58,14 +58,23 @@ var dummyEvents = [
     { title: "Dummy6", startDate: "20120912", endDate: "20120912", imageUrl: "", htmlBody: "<h1>Hello World</h1>", downloads: [], links: [], section: "scouts" }];
 
 app.get("/api/events/:section/:page", function(req, res) {
-
     var pageSize = 15;
-    var pageIndex = Math.round(dummyEvents.length / pageSize);
+    var criteria = {
+        section: req.params.section,
+        skip: (req.params.page * pageSize),
+        limit: pageSize
+    };
 
-    return res.send({
-        pageSize: pageSize,
-        lastPage: ((dummyEvents.length % pageSize) == 0) ? --pageIndex : pageIndex,
-        results: dummyEvents.slice(req.params.page * pageSize, (req.params.page * pageSize) + pageSize)
+    Event.find(criteria, function(err, events){
+        if (!err){
+            var pageIndex = Math.round(events.length / pageSize);
+
+            return res.send({
+                pageSize: pageSize,
+                lastPage: ((events.length % pageSize) == 0) ? --pageIndex : pageIndex,
+                results: events
+            });
+        }
     });
 });
 
