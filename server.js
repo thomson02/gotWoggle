@@ -163,7 +163,7 @@ app.post("/email", function(request, response){
     message += "Message: " + request.body.message;
 
     var mailOptions = {
-        from: "GOTWOGGLE.COM <process.env.GMAIL_USERNAME>",
+        from: "GOTWOGGLE.COM <" + process.env.GMAIL_USERNAME + ">",
         to: process.env.GMAIL_TO_ADDRESS,
         subject: request.body.subject,
         text: message
