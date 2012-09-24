@@ -6,9 +6,6 @@ var app = express.createServer();
 var _ = require("underscore");
 var nodemailer = require("nodemailer");
 
-// Setup DB Access
-mongoose.connect(process.env.MONGOLAB_URI);
-
 // Declare Mongoose Schemas
 var Event = mongoose.model('Event', new mongoose.Schema({
     title: String,
@@ -19,7 +16,8 @@ var Event = mongoose.model('Event', new mongoose.Schema({
     htmlBody: String,
     downloads: [mongoose.Schema.Types.Mixed],
     links: [mongoose.Schema.Types.Mixed],
-    priority: String
+    priority: String,
+    description: String
 }));
 
 var Media = mongoose.model('Media', new mongoose.Schema({
@@ -84,19 +82,24 @@ app.get("/api/schedule/:section/:startDate/:endDate", function(req, res){
 
 app.get("/api/events/:section/:page", function(req, res) {
     var pageSize = 5;
+    var todaysDate = new Date();
+    var todayString = (todaysDate.getFullYear() + ('0' + (todaysDate.getMonth()+1)).slice(-2) + ('0' + todaysDate.getDate()).slice(-2));
 
     Event.find(
-        { section: req.params.section },
+        { section: req.params.section, startDate: { $gt: parseInt(todayString) } },
         null,
-        { sort: {"startDate": -1 }, skip: (req.params.page * pageSize), limit: pageSize },
+        { sort: {"startDate": 1 } },
         function(err, events){
             if (!err){
-                var pageIndex = Math.round(events.length / pageSize);
+
+                var eventsWithData = _.filter(events, function(e) { return e.htmlBody && e.htmlBody.length > 0; });
+                var portion = eventsWithData.slice(req.params.page * pageSize, (req.params.page * pageSize) + pageSize);
+                var pageIndex = Math.ceil(eventsWithData.length / pageSize);
 
                 return res.send({
                     pageSize: pageSize,
-                    lastPage: ((events.length % pageSize) == 0) ? --pageIndex : pageIndex,
-                    results: events
+                    lastPage: pageIndex === 0 ? pageIndex : --pageIndex,
+                    results: portion
                 });
             }
         }
@@ -120,25 +123,30 @@ app.get('/api/media/:section/:page', function(req, res) {
                 }
 
                 _.each(mediaListPortion, function(media){
-                     s3.ListObjects({ BucketName: media.bucket, MaxKeys: 50 }, function(err, data){
-                        // update media listing
-                        if (_.isArray(data.Body.ListBucketResult.Contents)){
-                            media.media = _.map(data.Body.ListBucketResult.Contents, function(c){ return c.Key; });
-                        }
-                        else {
-                            media.media = [data.Body.ListBucketResult.Contents.Key];
-                        }
+                    if (media.bucket === "youtube") {
+                       resolved--;
+                    }
+                    else {
+                        s3.ListObjects({ BucketName: media.bucket, MaxKeys: 50 }, function(err, data){
+                            // update media listing
+                            if (_.isArray(data.Body.ListBucketResult.Contents)){
+                                media.media = _.map(data.Body.ListBucketResult.Contents, function(c){ return c.Key; });
+                            }
+                            else {
+                                media.media = [data.Body.ListBucketResult.Contents.Key];
+                            }
 
-                        // return api call with data
-                        if (--resolved === 0){
-                            var pageIndex = Math.ceil(mediaList.length / pageSize);
-                            return res.send({
-                                pageSize: pageSize,
-                                lastPage: pageIndex === 0 ? pageIndex : --pageIndex,
-                                results: mediaListPortion
-                            });
-                        }
-                    });
+                            // return api call with data
+                            if (--resolved === 0){
+                                var pageIndex = Math.ceil(mediaList.length / pageSize);
+                                return res.send({
+                                    pageSize: pageSize,
+                                    lastPage: pageIndex === 0 ? pageIndex : --pageIndex,
+                                    results: mediaListPortion
+                                });
+                            }
+                        });
+                    }
                 });
             }
             else {
@@ -181,6 +189,7 @@ app.post("/email", function(request, response){
 ///////////////////////////////////////////////////////////
 // PROTECTED API                                         //
 ///////////////////////////////////////////////////////////
+/* DISABLED!!!!!!!!!!
 app.post('/api/event', function(req, res) {
     var event = new Event({
         title: req.body.title,
@@ -221,6 +230,7 @@ app.post('/api/media', function(req, res) {
 
     return res.send(media);
 });
+*/
 
 function SendEmail(mailOptions){
     var smtpTransport = nodemailer.createTransport("SMTP",{

@@ -4,17 +4,30 @@
             <% _.each(mediaData.results, function(e){ %>
                 <li class="span4">
                     <div class="thumbnail">
-                        <% var thumb = ('http://' + e.bucket + '.s3.amazonaws.com/' + e.media[0]); %>
-                        <div style="height: 176px; background-position: center; background-image: url('<%= thumb %>'); background-size: cover"></div>
+                        <%
+                            if (e.bucket === "youtube"){
+                                var thumb = 'http://img.youtube.com/vi/' + e.media[0] + '/0.jpg';
+                                var css = "thumbnailVid";
+                            }
+                            else {
+                                var thumb = ('http://' + e.bucket + '.s3.amazonaws.com/' + e.media[0]);
+                                var css = "thumbnailImg";
+                            }
+                        %>
+                        <div class="<%= css %>" style="height: 176px; background-position: center; background-image: url('<%= thumb %>'); background-size: cover"></div>
                         <div class="caption">
                             <h5 style="height: 18px; max-height: 18px; overflow: hidden;"><%= e.title %></h5>
                             <p style="height: 36px; max-height: 36px; overflow: hidden;"><%= e.description %></p>
                         </div>
                         <div style="display: none">
-                            <% _.each(e.media, function(p, i){ %>
-                            <% var url = ('http://' + e.bucket + '.s3.amazonaws.com/' + p); %>
-                                <a class="group<%= e._id%>" href="<%= url %>"></a>
-                            <% }); %>
+                            <% if (e.bucket === "youtube"){ %>
+                                <a class="youtube group<%= e._id%>" href="http://www.youtube.com/embed/<%= e.media[0] %>?rel=0&amp;wmode=transparent&amp;autoplay=1"></a>
+                            <% } else { %>
+                                <% _.each(e.media, function(p, i){ %>
+                                    <% var url = ('http://' + e.bucket + '.s3.amazonaws.com/' + p); %>
+                                    <a class="group<%= e._id%>" href="<%= url %>"></a>
+                                <% }); %>
+                            <% } %>
                         </div>
                     </div>
                 </li>

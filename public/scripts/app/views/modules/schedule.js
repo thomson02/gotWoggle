@@ -14,7 +14,7 @@ define([
         template,
         modalTemplate) {
 
-        var months = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
+        var months = new Array('', 'January','February','March','April','May','June','July','August','September','October','November','December');
 
         var scheduleView = Backbone.View.extend({
 
@@ -22,7 +22,7 @@ define([
                 'click button.prev': 'prevMonth',
                 'click button.today': 'today',
                 'click button.next': 'nextMonth',
-                'click span.hasDialog': 'showEvent',
+                'click span.label-info': 'showEvent',
                 'click div.modal-footer a': 'closeEventModal'
             },
 
@@ -33,7 +33,9 @@ define([
 
             showEvent: function(e) {
                 var eventDetails = _.find(this.currentDataset, function(ds) { return $(e.currentTarget).attr("class").indexOf("event" + ds._id) >= 0; });
-                this.$("#scheduleModal").html(_.template(modalTemplate, eventDetails));
+                var sDate =  months[parseInt(eventDetails.startDate.toString().substring(4, 6))] + " " + eventDetails.startDate.toString().substring(6, 8);
+                var eDate =  months[parseInt(eventDetails.endDate.toString().substring(4, 6))] + " " + eventDetails.endDate.toString().substring(6, 8);
+                this.$("#scheduleModal").html(_.template(modalTemplate, _.extend(eventDetails, { formattedStartDate: sDate, formattedEndDate: eDate })));
                 $("#scheduleModal div.modal").modal();
             },
 
@@ -84,7 +86,7 @@ define([
                 daysAfter = _.map(_.range(1, daysAfter + 1), function(d) { return convert(d, false, false); });
 
                 this.$el.html(_.template(template, {
-                    calendarTitle: months[this.dateViewing.getMonth()] + " " + this.dateViewing.getFullYear(),
+                    calendarTitle: months[this.dateViewing.getMonth()+1] + " " + this.dateViewing.getFullYear(),
                     days: daysBefore.concat(daysInThisMonth, daysAfter)
                 }));
 
@@ -96,7 +98,7 @@ define([
             },
 
             addEvent: function(data){
-                var cssClass = data.htmlBody.length > 0 ? "label " + data.priority : "label hasDialog " + data.priority;
+                var cssClass = data.htmlBody.length > 0 ? "label label-info" : "label";
                 var html = '<span class="event' + data._id + ' ' + cssClass + '" style="display: block; white-space: normal; margin-bottom: 3px;">' + data.title + '</span>';
                 var startDay = parseInt(data.startDate.toString().substr(data.startDate.toString().length-2));
                 var endDay = parseInt(data.endDate.toString().substr(data.endDate.toString().length-2));
@@ -107,8 +109,8 @@ define([
 
             getAndPopulateEvents: function(){
                 var that = this;
-                var fromDate = new Date(this.dateViewing.getFullYear(), this.dateViewing.getMonth()-1, 0);
-                var toDate = new Date(this.dateViewing.getFullYear(), this.dateViewing.getMonth(), 0);
+                var fromDate = new Date(this.dateViewing.getFullYear(), this.dateViewing.getMonth(), 0);
+                var toDate = new Date(this.dateViewing.getFullYear(), this.dateViewing.getMonth()+1, 0);
 
                 $.getJSON(this.fetchUrl + this.convertDate(fromDate) + "/" + this.convertDate(toDate), function(data){
                     that.currentDataset = data;

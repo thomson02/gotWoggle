@@ -1,21 +1,22 @@
 <div class="row">
-    <table class="span12 table table-bordered table-striped">
+    <table class="span8 table table-bordered table-striped">
         <% if (eventData.results) { %>
             <% _.each(eventData.results, function(e){ %>
                 <tr>
-                    <td><%= e.title %></td>
-                    <td><%= e.startDate %></td>
-                    <td><%= e.endDate %></td>
-                    <td><%= e.htmlBody %></td>
+                    <td>
+                        <% var date = e.formattedStartDate === e.formattedEndDate ? e.formattedStartDate : e.formattedStartDate + " - " + e.formattedEndDate; %>
+                        <h4><%= e.title %> <small><%= date %></small><% if (e.downloads && e.downloads.length > 0) { %> <span class="badge badge-warning" style="margin-left: 10px;"><%= e.downloads.length %></span> <% } %><% if (e.links && e.links.length > 0) { %> <span class="badge badge-info" style="margin-left: 10px;"><%= e.links.length %></span> <% } %></h4>
+                        <p style="margin-top: 5px; margin-bottom: 0px;"><%= e.description %></p>
+                    </td>
                 </tr>
             <% }); %>
 
             <% _.each(_.range(eventData.pageSize - eventData.results.length), function(e){ %>
-                <tr><td></td><td></td><td></td><td></td></tr>
+                <tr style="height: 58px;"><td>&nbsp;</td></tr>
             <% }); %>
 
         <% } else { %>
-            <tr><td colspan="5"><div style="background-image: url('/img/ajax-loader.gif'); background-repeat: no-repeat; padding-left: 22px;">Loading...</div></td></tr>
+            <tr><td><div style="background-image: url('/img/ajax-loader.gif'); background-repeat: no-repeat; padding-left: 22px;">Loading...</div></td></tr>
         <% } %>
     </table>
 </div>

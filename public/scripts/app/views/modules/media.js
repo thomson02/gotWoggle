@@ -3,7 +3,8 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'text!app/templates/modules/media.html'
+    'text!app/templates/modules/media.html',
+    'colorbox'
 ],
     function(
         _,
@@ -18,7 +19,34 @@ define([
             events: {
                 'click a.page': 'changePage',
                 'click a.prev': 'prevPage',
-                'click a.next': 'nextPage'
+                'click a.next': 'nextPage',
+                'click div.thumbnailImg': 'colorboxImg',
+                'click div.thumbnailVid': 'colorboxVid'
+            },
+
+            colorboxVid: function(e){
+                var groupName = $(e.currentTarget).siblings("div:last").find("a:first").attr("class").replace("youtube ", "");
+                $("." + groupName).colorbox({
+                    rel: groupName,
+                    iframe: true,
+                    innerWidth: 425,
+                    innerHeight: 344,
+                    open: true,
+                    onClosed: function(){
+                        $.colorbox.remove();
+                    }
+                });
+            },
+
+            colorboxImg: function(e) {
+                var groupName = $(e.currentTarget).siblings("div:last").find("a:first").attr("class");
+                $("." + groupName).colorbox({
+                    rel: groupName,
+                    open: true,
+                    onClosed: function(){
+                        $.colorbox.remove();
+                    }
+                });
             },
 
             prevPage: function(e) {

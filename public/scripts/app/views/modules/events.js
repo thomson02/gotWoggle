@@ -14,6 +14,8 @@ define([
         template,
         modalTemplate) {
 
+        var months = new Array('', 'January','February','March','April','May','June','July','August','September','October','November','December');
+
         var eventsView = Backbone.View.extend({
 
             events: {
@@ -72,6 +74,12 @@ define([
             fetchEvents: function(){
                 var that = this;
                 $.getJSON(this.fetchUrl + this.section + "/" + this.pager.currentPage, function(data){
+                    _.each(data.results, function(d){
+                        d.formattedStartDate = months[parseInt(d.startDate.toString().substring(4, 6))] + " " + d.startDate.toString().substring(6, 8);
+                        d.formattedEndDate = months[parseInt(d.endDate.toString().substring(4, 6))] + " " + d.endDate.toString().substring(6, 8);
+                        d.inFuture = new Date(d.endDate.toString().substring(0, 4), parseInt(d.endDate.toString().substring(4, 6)), d.endDate.toString().substring(6, 8)) >= new Date();
+                    });
+
                     that.eventData.set(data);
                 });
             },
