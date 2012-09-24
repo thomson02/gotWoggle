@@ -16,7 +16,7 @@
 }
 
 .beaver-image {
-    background: url(/img/beaverlogo_3col.jpg) center center;
+    background: url(http://images.gotwoggle.com.s3-external-3.amazonaws.com/beaverlogo_3col.jpg) center center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     height: 180px;
@@ -24,7 +24,7 @@
 }
 
 .cub-image {
-    background: url(/img/cubs.jpg) center center;
+    background: url(http://images.gotwoggle.com.s3-external-3.amazonaws.com/cubs.jpg) center center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     margin-top: 70px;
@@ -32,7 +32,7 @@
 }
 
 .scout-image {
-    background: url(/img/scouts.gif) center center;
+    background: url(http://images.gotwoggle.com.s3-external-3.amazonaws.com/scouts.gif) center center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     margin-top: 70px;
@@ -40,7 +40,7 @@
 }
 
 .explorer-image {
-    background: url(/img/explorers.gif) center center;
+    background: url(http://images.gotwoggle.com.s3-external-3.amazonaws.com/explorers.gif) center center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     margin-top: 70px;
@@ -48,7 +48,7 @@
 }
 
 .esu-image {
-    background: url(/img/esu.jpg) center center;
+    background: url(http://images.gotwoggle.com.s3-external-3.amazonaws.com/esu.jpg) center center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     margin-top: 70px;
@@ -63,7 +63,7 @@ ol.black li { color: black; }
 }
 
 .scoutLogo {
-    background: transparent url(/img/scouts.png) center center;
+    background: transparent url(http://images.gotwoggle.com.s3-external-3.amazonaws.com/scouts.png) center center;
     background-repeat: repeat-x;
     background-size: 100% 100%;
     position: absolute;
@@ -288,11 +288,11 @@ div.thumbnailImg, div.thumbnailVid {
 #cboxTitle{position:absolute; top:-20px; left:0; color:#ccc;}
 #cboxCurrent{position:absolute; top:-20px; right:0px; color:#ccc;}
 #cboxSlideshow{position:absolute; top:-20px; right:90px; color:#fff;}
-#cboxPrevious{position:absolute; top:50%; left:5px; margin-top:-32px; background:url(../img/controls.png) no-repeat top left; width:28px; height:65px; text-indent:-9999px;}
+#cboxPrevious{position:absolute; top:50%; left:5px; margin-top:-32px; background:url(http://images.gotwoggle.com.s3-external-3.amazonaws.com/controls.png) no-repeat top left; width:28px; height:65px; text-indent:-9999px;}
 #cboxPrevious:hover{background-position:bottom left;}
-#cboxNext{position:absolute; top:50%; right:5px; margin-top:-32px; background:url(../img/controls.png) no-repeat top right; width:28px; height:65px; text-indent:-9999px;}
+#cboxNext{position:absolute; top:50%; right:5px; margin-top:-32px; background:url(http://images.gotwoggle.com.s3-external-3.amazonaws.com/controls.png) no-repeat top right; width:28px; height:65px; text-indent:-9999px;}
 #cboxNext:hover{background-position:bottom right;}
 #cboxLoadingOverlay{background:#000;}
 #cboxLoadingGraphic{background:url(../img/loading.gif) no-repeat center center;}
-#cboxClose{position:absolute; top:5px; right:5px; display:block; background:url(../img/controls.png) no-repeat top center; width:38px; height:19px; text-indent:-9999px;}
+#cboxClose{position:absolute; top:5px; right:5px; display:block; background:url(http://images.gotwoggle.com.s3-external-3.amazonaws.com/controls.png) no-repeat top center; width:38px; height:19px; text-indent:-9999px;}
 #cboxClose:hover{background-position:bottom center;}
