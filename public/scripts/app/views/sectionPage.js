@@ -5,6 +5,7 @@ define([
     'backbone',
     'app/views/modules/schedule',
     'app/views/modules/events',
+    'app/views/modules/media',
     'text!app/templates/sectionPages/beaversPage.html',
     'text!app/templates/sectionPages/cubsPage.html',
     'text!app/templates/sectionPages/scoutsPage.html',
@@ -16,6 +17,7 @@ define([
         Backbone,
         ScheduleView,
         EventsView,
+        MediaView,
         BeaversTemplate,
         CubsTemplate,
         ScoutsTemplate,
@@ -43,7 +45,9 @@ define([
                 events.render();
                 events.fetchEvents();
 
-                // new MediaView({ el: this.$("#mediaContainer"), section: this.section }).render();
+                var media = new MediaView({ el: this.$("#mediaContainer"), section: this.section }).render();
+                media.render();
+                media.fetchMedia();
 
                 return this;
             }

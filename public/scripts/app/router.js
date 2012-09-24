@@ -5,6 +5,7 @@ define([
     'backbone',
     'app/views/staticPage',
     'app/views/sectionPage',
+    'app/views/contactPage',
     'text!app/templates/homePage.html',
     'text!app/templates/groupPages/people.html',
     'text!app/templates/groupPages/heartstart.html',
@@ -17,6 +18,7 @@ define([
         Backbone,
         StaticPage,
         SectionPageView,
+        ContactPageView,
         HomePageTemplate,
         PeopleTemplate,
         HeartStartTemplate,
@@ -46,6 +48,7 @@ define([
                 'group/heartstart': 'heartstart',
                 'group': 'group',
                 'media': 'media',
+                'contact': 'contact',
                 '*actions': 'defaultAction'
             },
 
@@ -80,6 +83,10 @@ define([
 
             media: function(){
 
+            },
+
+            contact: function(){
+                this.appView.render(new ContactPageView({ el: $("#main-container") }));
             },
 
             people: function(){

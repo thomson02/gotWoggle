@@ -240,3 +240,12 @@ ol.black li { color: black; }
 span.hasDialog {
     cursor: pointer;
 }
+
+a.disabled-link,
+a.disabled-link:visited ,
+a.disabled-link:active,
+a.disabled-link:hover {
+    background-color: white !important;
+    color:#aaa !important;
+    cursor: default;
+}

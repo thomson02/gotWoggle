@@ -1,0 +1,41 @@
+<div class="row-fluid">
+    <ul class="thumbnails">
+        <% if (mediaData.results && mediaData.results.length > 0) { %>
+            <% _.each(mediaData.results, function(e){ %>
+                <li class="span4">
+                    <div class="thumbnail">
+                        <% var thumb = ('http://' + e.bucket + '.s3.amazonaws.com/' + e.media[0]); %>
+                        <div style="height: 176px; background-position: center; background-image: url('<%= thumb %>'); background-size: cover"></div>
+                        <div class="caption">
+                            <h5 style="height: 18px; max-height: 18px; overflow: hidden;"><%= e.title %></h5>
+                            <p style="height: 36px; max-height: 36px; overflow: hidden;"><%= e.description %></p>
+                        </div>
+                        <div style="display: none">
+                            <% _.each(e.media, function(p, i){ %>
+                            <% var url = ('http://' + e.bucket + '.s3.amazonaws.com/' + p); %>
+                                <a class="group<%= e._id%>" href="<%= url %>"></a>
+                            <% }); %>
+                        </div>
+                    </div>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <div class="span4">
+                <div style="background-image: url('/img/ajax-loader.gif'); background-repeat: no-repeat; padding-left: 22px;">Loading...</div>
+            </div>
+        <% } %>
+    </ul>
+</div>
+<div class="row">
+    <% if (mediaData.results && mediaData.results.length > 0) { %>
+    <div class="pagination pagination-right" style="margin-top: 0px;">
+        <ul>
+            <li class="<% if (pager.currentPage === 0) { print('disabled'); } %>"><a class="prev" href="">«</a></li>
+            <% _.each(buttons, function(b) { %>
+            <li class="<% if (b.IsCurrent) { print('active'); } %>"><a href="" class="page"><%= b.PageNumber+1 %></a></li>
+            <% }); %>
+            <li class="<% if (pager.currentPage === mediaData.lastPage) { print('disabled'); } %>"><a class="next" href="">»</a></li>
+        </ul>
+    </div>
+    <% } %>
+</div>
