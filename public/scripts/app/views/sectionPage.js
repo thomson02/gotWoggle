@@ -39,13 +39,13 @@ define([
 
             render: function(){
                 this.$el.html(templateMap[this.section]);
-                var schedule = new ScheduleView({ el: this.$("#scheduleContainer"), section: this.section }).render();
+                var schedule = new ScheduleView({ el: "#scheduleContainer", section: this.section }).render();
 
-                var events = new EventsView({ el: this.$("#eventContainer"), section: this.section });
+                var events = new EventsView({ el: "#eventContainer", section: this.section });
                 events.render();
                 events.fetchEvents();
 
-                var media = new MediaView({ el: this.$("#mediaContainer"), section: this.section }).render();
+                var media = new MediaView({ el: "#mediaContainer", section: this.section }).render();
                 media.render();
                 media.fetchMedia();
 

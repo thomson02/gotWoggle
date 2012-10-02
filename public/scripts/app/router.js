@@ -58,23 +58,23 @@ define([
             },
 
             homepage: function() {
-                this.appView.render(new StaticPage({ el: $("#main-container"), tmpl: HomePageTemplate }));
+                this.appView.render(new StaticPage({ el: "#main-container", tmpl: HomePageTemplate }));
             },
 
             beavers: function() {
-                this.appView.render(new SectionPageView({ el: $("#main-container"), section: "beavers" }));
+                this.appView.render(new SectionPageView({ el: "#main-container", section: "beavers" }));
             },
 
             cubs: function() {
-                this.appView.render(new SectionPageView({ el: $("#main-container"), section: "cubs" }));
+                this.appView.render(new SectionPageView({ el: "#main-container", section: "cubs" }));
             },
 
             scouts: function() {
-                this.appView.render(new SectionPageView({ el: $("#main-container"), section: "scouts" }));
+                this.appView.render(new SectionPageView({ el: "#main-container", section: "scouts" }));
             },
 
             explorers: function() {
-                this.appView.render(new SectionPageView({ el: $("#main-container"), section: "explorers" }));
+                this.appView.render(new SectionPageView({ el: "#main-container", section: "explorers" }));
             },
 
             group: function(){
@@ -86,19 +86,19 @@ define([
             },
 
             contact: function(){
-                this.appView.render(new ContactPageView({ el: $("#main-container") }));
+                this.appView.render(new ContactPageView({ el: "#main-container" }));
             },
 
             people: function(){
-                this.appView.render(new StaticPage({ el: $("#main-container"), tmpl: PeopleTemplate }));
+                this.appView.render(new StaticPage({ el: "#main-container", tmpl: PeopleTemplate }));
             },
 
             heartstart: function() {
-                this.appView.render(new StaticPage({ el: $("#main-container"), tmpl: HeartStartTemplate }));
+                this.appView.render(new StaticPage({ el: "#main-container", tmpl: HeartStartTemplate }));
             },
 
             history: function() {
-                this.appView.render(new StaticPage({ el: $("#main-container"), tmpl: HistoryTemplate }));
+                this.appView.render(new StaticPage({ el: "#main-container", tmpl: HistoryTemplate }));
             },
 
 
