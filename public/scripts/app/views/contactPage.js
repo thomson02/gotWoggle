@@ -31,10 +31,12 @@ define([
                         email: this.$el.find("#inputEmail").val(),
                         phone: this.$el.find("#inputPhone").val(),
                         message: this.$el.find("#inputMessage").val(),
+                        type: this.$el.find("#messageType").val(),
                         subject: "Contact Form"
                     });
 
                     this.$el.find(":input").val("");
+                    this.$("#messageType").val(this.messageType);
                 }
             },
 
@@ -44,11 +46,12 @@ define([
             },
 
             initialize: function(options){
-
+                this.messageType = options.messageType;
             },
 
             render: function(){
                 this.$el.html(Template);
+                this.$("#messageType").val(this.messageType);
             }
         });
 

@@ -49,6 +49,7 @@ define([
                 'group': 'group',
                 'media': 'media',
                 'contact': 'contact',
+                'contact/:messageType': 'contact',
                 '*actions': 'defaultAction'
             },
 
@@ -85,8 +86,8 @@ define([
 
             },
 
-            contact: function(){
-                this.appView.render(new ContactPageView({ el: "#main-container" }));
+            contact: function(messageType){
+                this.appView.render(new ContactPageView({ el: "#main-container", messageType: messageType || "leaders" }));
             },
 
             people: function(){
