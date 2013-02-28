@@ -169,7 +169,7 @@ app.post("/email", function(request, response){
         text: message
     }
 
-    SendEmail(mailOptions);
+    SendEmail(mailOptions, response);
 });
 
 //////////////////////
@@ -232,7 +232,7 @@ app.post('/api/media', function(req, res) {
 });
 */
 
-function SendEmail(mailOptions){
+function SendEmail(mailOptions, response){
     var smtpTransport = nodemailer.createTransport("SMTP",{
         service: "Gmail",
         auth: {
@@ -249,6 +249,7 @@ function SendEmail(mailOptions){
         }
 
         smtpTransport.close(); // shut down the connection pool, no more messages
+        return response.send();
     });
 }
 

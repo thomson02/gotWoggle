@@ -36,7 +36,6 @@ define([
                     });
 
                     this.$el.find(":input").val("");
-                    this.$("#messageType").val(this.messageType);
                 }
             },
 
