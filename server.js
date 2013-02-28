@@ -232,7 +232,7 @@ app.post('/api/media', function(req, res) {
 });
 */
 
-function SendEmail(mailOptions, response){
+function SendEmail(mailOptions, res){
     var smtpTransport = nodemailer.createTransport("SMTP",{
         service: "Gmail",
         auth: {
@@ -249,7 +249,7 @@ function SendEmail(mailOptions, response){
         }
 
         smtpTransport.close(); // shut down the connection pool, no more messages
-        return response.send();
+        return res.send();
     });
 }
 
