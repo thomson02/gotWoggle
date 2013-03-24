@@ -7,7 +7,7 @@
         "connect-mongo": "0.1.x",
         "underscore": "latest",
         "dropbox": "0.4.0",
-        "awssum": "latest",
+        "awssum": "0.11.0",
         "nodemailer": "latest"
     },
     "engines": {
