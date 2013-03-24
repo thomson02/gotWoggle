@@ -213,7 +213,7 @@ app.post('/api/event', function(req, res) {
 });
 
  */
-
+/*
 app.post('/api/media', function(req, res) {
     console.log("PASSWORD: " + req.body.password);
     if (req.body.password === process.env.GALLERY_PASSWORD) {
@@ -238,7 +238,7 @@ app.post('/api/media', function(req, res) {
    console.log("FAILED PASSWORD CHECK");
    return res.send();
 });
-
+*/
 
 function SendEmail(mailOptions, res){
     var smtpTransport = nodemailer.createTransport("SMTP",{
