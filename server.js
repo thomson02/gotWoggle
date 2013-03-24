@@ -212,8 +212,11 @@ app.post('/api/event', function(req, res) {
     return res.send(event);
 });
 
+ */
+
 app.post('/api/media', function(req, res) {
-   var media = new Media({
+   if (req.body.password === process.env.GALLERY_PASSWORD) {
+    var media = new Media({
        title: req.body.title,
        description: req.body.description,
        section: req.body.section,
@@ -229,8 +232,11 @@ app.post('/api/media', function(req, res) {
     });
 
     return res.send(media);
+   }
+
+   return res.send();
 });
-*/
+
 
 function SendEmail(mailOptions, res){
     var smtpTransport = nodemailer.createTransport("SMTP",{
