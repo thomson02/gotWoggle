@@ -11,6 +11,6 @@
         "nodemailer": "latest"
     },
     "engines": {
-        "node": "latest"
+        "node": "0.8.x"
     }
 }
