@@ -6,6 +6,8 @@
         "mongoose": "2.6.x",
         "connect-mongo": "0.1.x",
         "underscore": "latest",
+        "dropbox": "0.4.0",
+        "awssum": "latest",
         "nodemailer": "latest"
     },
     "engines": {
