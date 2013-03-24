@@ -215,7 +215,8 @@ app.post('/api/event', function(req, res) {
  */
 
 app.post('/api/media', function(req, res) {
-   if (req.body.password === process.env.GALLERY_PASSWORD) {
+    console.log("PASSWORD: " + req.body.password);
+    if (req.body.password === process.env.GALLERY_PASSWORD) {
     var media = new Media({
        title: req.body.title,
        description: req.body.description,
@@ -234,6 +235,7 @@ app.post('/api/media', function(req, res) {
     return res.send(media);
    }
 
+   console.log("FAILED PASSWORD CHECK");
    return res.send();
 });
 
