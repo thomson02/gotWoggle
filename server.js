@@ -29,16 +29,6 @@ var Media = mongoose.model('Media', new mongoose.Schema({
     media: [String]
 }));
 
-// Amazon S3
-var awssum = require('awssum');
-var amazon = awssum.load('amazon/amazon');
-var S3 = awssum.load('amazon/s3').S3;
-var s3 = new S3({
-    'accessKeyId' : process.env.AMAZON_ACCESS_KEY_ID,
-    'secretAccessKey' : process.env.AMAZON_SECRET_ACCESS_KEY,
-    'region' : amazon.EU_WEST_1
-});
-
 // Configure the server
 app.configure(function(){
         app.use(express.favicon());
