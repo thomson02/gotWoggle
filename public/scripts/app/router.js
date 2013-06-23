@@ -10,6 +10,7 @@ define([
     'text!app/templates/groupPages/people.html',
     'text!app/templates/groupPages/heartstart.html',
     'text!app/templates/groupPages/history.html',
+    'text!app/templates/groupPages/friends.html',
     'bootstrap'
 ],
     function(
@@ -22,7 +23,8 @@ define([
         HomePageTemplate,
         PeopleTemplate,
         HeartStartTemplate,
-        HistoryTemplate) {
+        HistoryTemplate,
+        FriendTemplate) {
 
         var AppView = {
             currentView: null,
@@ -46,6 +48,7 @@ define([
                 'group/history': 'history',
                 'group/people': 'people',
                 'group/heartstart': 'heartstart',
+                'group/friends': 'friends',
                 'group': 'group',
                 'media': 'media',
                 'contact': 'contact',
@@ -84,6 +87,10 @@ define([
 
             media: function(){
 
+            },
+
+            friends: function() {
+                this.appView.render(new StaticPage({ el: "#main-container", tmpl: FriendTemplate }));
             },
 
             contact: function(messageType){
