@@ -1,17 +1,16 @@
 {
-    "name": "node-example",
-    "version": "0.0.1",
+    "name": "gotWoggle",
+    "version": "0.0.2",
     "dependencies": {
-        "express": "2.5.x",
-        "mongoose": "2.6.x",
-        "connect-mongo": "0.1.x",
-        "underscore": "latest",
+        "express": "3.3.5",
+        "mongoose": "3.6.17",
+        "connect-mongo": "0.3.3",
+        "underscore": "1.5.1",
         "dropbox": "0.4.0",
         "awssum": "0.11.0",
-        "nodemailer": "latest",
-        "readable-stream": "latest"
+        "nodemailer": "0.5.2"
     },
     "engines": {
-        "node": "0.8.x"
+        "node": "0.10.15"
     }
 }

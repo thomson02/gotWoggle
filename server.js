@@ -2,7 +2,7 @@
 var express = require('express');
 var MongoStore = require('connect-mongo')(express);
 var mongoose = require('mongoose');
-var app = express.createServer();
+var app = express();
 var _ = require("underscore");
 var nodemailer = require("nodemailer");
 
