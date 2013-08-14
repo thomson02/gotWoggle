@@ -8,7 +8,8 @@
         "underscore": "latest",
         "dropbox": "0.4.0",
         "awssum": "0.11.0",
-        "nodemailer": "latest"
+        "nodemailer": "latest",
+        "readable-stream": "latest"
     },
     "engines": {
         "node": "0.8.x"
