@@ -3,9 +3,6 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'app/views/modules/schedule',
-    'app/views/modules/events',
-    'app/views/modules/media',
     'text!app/templates/sectionPages/beaversPage.html',
     'text!app/templates/sectionPages/cubsPage.html',
     'text!app/templates/sectionPages/scoutsPage.html',
@@ -15,9 +12,6 @@ define([
         _,
         $,
         Backbone,
-        ScheduleView,
-        EventsView,
-        MediaView,
         BeaversTemplate,
         CubsTemplate,
         ScoutsTemplate,
@@ -39,15 +33,6 @@ define([
 
             render: function(){
                 this.$el.html(templateMap[this.section]);
-                var schedule = new ScheduleView({ el: "#scheduleContainer", section: this.section }).render();
-
-                var events = new EventsView({ el: "#eventContainer", section: this.section });
-                events.render();
-                events.fetchEvents();
-
-                var media = new MediaView({ el: "#mediaContainer", section: this.section }).render();
-                media.render();
-                media.fetchMedia();
 
                 return this;
             }

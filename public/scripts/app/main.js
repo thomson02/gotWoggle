@@ -7,10 +7,7 @@ require.config({
         'underscore': 'lib/underscore-1.3.1.min',
         'backbone': 'lib/backbone-0.9.2.min',
         'text': 'lib/require-text-1.0.0.min',
-        'bootstrap': 'lib/bootstrap.min',
-        'colorbox': 'lib/jquery.colorbox-min',
-        'jqueryui-slide': 'lib/jquery-ui-1.8.23.custom.slide.min',
-        'calendar': 'lib/calendar'
+        'bootstrap': 'lib/bootstrap.min'
     },
     shim: {
         'underscore': {
@@ -21,15 +18,6 @@ require.config({
             exports: 'Backbone'
         },
         'bootstrap': {
-            deps: ['jquery']
-        },
-        'colorbox': {
-            deps: ['jquery']
-        },
-        'jqueryui-slide': {
-            deps: ['jquery']
-        },
-        calendar: {
             deps: ['jquery']
         }
     }
